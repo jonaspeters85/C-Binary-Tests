@@ -10,8 +10,8 @@ int main()
 {
     unsigned int number;
 
-    test01();
-
+    //test01();
+    test03();
 
 
     printf("\n");
