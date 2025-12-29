@@ -11,7 +11,7 @@ int main()
     unsigned int number;
 
     //test01();
-    test03();
+    test05();
 
 
     printf("\n");
