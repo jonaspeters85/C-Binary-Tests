@@ -24,7 +24,7 @@ void test01()
     printf("Enter bit position ... starting at 0 (blank line to finish):\n");
     while (1)
     {
-        printf("bit> ");
+        printf("check bit> ");
         if (!fgets(line, sizeof(line), stdin))
         {
             break; // EOF
