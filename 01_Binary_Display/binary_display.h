@@ -2,6 +2,7 @@
 #define BINARY_DISPLAY_H
 
 #include <stdio.h>
+#include "colors.h"
 
 void print_binary_simple(unsigned int n)
 {
@@ -61,9 +62,7 @@ void print_binary(int value)
 }
 
 
-#define COLOR_GREEN "\x1b[32m"
-#define COLOR_RED "\x1b[31m"
-#define COLOR_RESET "\x1b[0m"
+
 
 void print_binary_highlight(int value, int highlight_bit)
 {
