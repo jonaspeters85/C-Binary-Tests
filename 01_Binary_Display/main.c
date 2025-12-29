@@ -38,14 +38,11 @@ int main()
         int ch = read_key();
         printf("Selection (1-5 or ESC): ");
 
-        //int ch = getchar();
         if (ch == EOF)
         {
             break;
         }
 
-        // Konsumiere Rest der Zeile
-        //flush_line();
         putchar(ch);
         putchar('\n');
 
@@ -54,7 +51,7 @@ int main()
             printf("Ended.\n");
             break;
         }
-
+        printf("\n");
         switch (ch)
         {
             case '1':
