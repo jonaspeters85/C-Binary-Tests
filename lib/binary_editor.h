@@ -166,7 +166,7 @@ static void print_help(void)
 
 /* ---------- Main loop ---------- */
 
-int biteditor(void)
+int binary_editor(void)
 {
     uint32_t value = 0;
     char line[256];
