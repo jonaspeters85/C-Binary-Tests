@@ -2,13 +2,22 @@
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
+#include <string.h>
 #include "../lib/binary_display.h"
 
 #define NL printf("\n");
 
+void to_lowercaser(char *s)
+{
+    while(*s != '\0')
+        *s++ = *s | (1u << 5);git ad
+}
+
+
 // random tests
 int main()
 {
+    printf("Using bitshifting to set a Captial letter to lowercase letter\n");
     unsigned int ASCII_A = 65;
     unsigned int ASCII_a = 97;
 
@@ -64,8 +73,17 @@ int main()
     printf("\t"COLOR_CYAN"|" COLOR_RESET " is bitwise OR operator\n"); 
     printf("\t0 | 0 = 0\n\t0 | "COLOR_GREEN"1" COLOR_RESET " = "COLOR_GREEN"1" COLOR_RESET "\n\t"COLOR_GREEN"1" COLOR_RESET " | 0 = "COLOR_GREEN"1" COLOR_RESET "\n\t"COLOR_GREEN"1" COLOR_RESET " | "COLOR_GREEN"1" COLOR_RESET " = "COLOR_GREEN"1" COLOR_RESET "\n");
 
-    char* test_str = "Hello, World!";
+    NL  
+    printf(""COLOR_YELLOW"\n");
+    printf("if in the mask is a 1, the resulting bit is set to 1\n");
+    printf("if in the mask is a 0, the resulting bit remains unchanged\n");
+    printf(""COLOR_RESET"\n");
 
+    char test_str[] ="Hello, World!";
+
+    printf("Test String: %s\n", test_str); 
+    to_lowercaser(test_str);
+    printf("\nresult: %s\n", test_str);
     return 0;
 }
 
