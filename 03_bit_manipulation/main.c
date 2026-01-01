@@ -270,13 +270,14 @@ void short_bit_explanation()
     NL
 }
 
-// random tests
+// Bit Manipulation Tests with letter case conversions
 int main()
 {
     test_bit_set();
     test_clear_bit();
     test_toggle_bit();
     short_bit_explanation();
+
     return 0;
 }
 
