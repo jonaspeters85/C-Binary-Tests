@@ -3,6 +3,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <string.h>
+#include <inttypes.h>
 #include "../lib/binary_display.h"
 #include "../lib/colors.h"
 
@@ -158,7 +159,22 @@ void test_clear_bit()
     print_binary_highlight(ASCII_a, 5);
 
     NL
+    printf(COLOR_CYAN "(1u << 5)"COLOR_RESET " sets a maksk with bit 5 high\n");
+    printf("(1u << 5) = %u.    ... in uint8_t.    ", ((uint8_t)(1u << 5)));
+    print_binary_highlight(((uint8_t)(1u << 5)), 5);
+    NL
 
+    printf(COLOR_PURPLE"~"COLOR_RESET" inverts the mask\n");
+    printf(COLOR_CYAN "~(1u << 5)"COLOR_RESET " sets a maksk with all bits high except bit 5 which is low\n");
+    printf("~(1u << 5) = %u.    ... in uint8_t.    ", ((uint8_t)~(1u << 5)));
+    print_binary_highlight(((uint8_t)~(1u << 5)), 5);
+    NL
+    printf(COLOR_CYAN"&" COLOR_RESET " Operator truth table:\n");
+    printf("\t0 & 0 = 0\n\t0 & "COLOR_GREEN"1" COLOR_RESET " = 0\n\t"COLOR_GREEN"1" COLOR_RESET " & 0 = 0\n\t"COLOR_GREEN"1" COLOR_RESET " & "COLOR_GREEN"1" COLOR_RESET " = "COLOR_GREEN"1" COLOR_RESET "\n"); 
+    NL
+    printf("Using "COLOR_GREEN"AND (&)"COLOR_RESET " operator with this mask clears only bit 5 to "COLOR_RED"0"COLOR_RESET ", all other bits remain unchanged.\n");
+    printf("there are more "COLOR_GREEN"1"COLOR_RESET"s in the mask as needed. So if there is a "COLOR_GREEN"1" COLOR_RESET " in the number and "COLOR_GREEN"1" COLOR_RESET " in the mask, the resulting bit remains "COLOR_GREEN"1" COLOR_RESET ".\n If there is a "COLOR_RED"0"COLOR_RESET" in the number and a "COLOR_GREEN"1" COLOR_RESET " in the mask, the resulting bit remains "COLOR_RED"0" COLOR_RESET ".\n If there is a "COLOR_GREEN"1" COLOR_RESET " in the number and a "COLOR_RED"0"COLOR_RESET" in the mask, the resulting bit is "COLOR_CYAN"cleared to "COLOR_RED"0.\n" COLOR_RESET);
+    NL
     char test_str[] ="Hello, World!";
 
     printf("Test String: %s\n", test_str); 
@@ -185,9 +201,9 @@ void test_switch_case()
 // random tests
 int main()
 {
-    test_bit_set();
+    //test_bit_set();
     test_clear_bit();
-    test_switch_case();
+    //test_switch_case();
     return 0;
 }
 
