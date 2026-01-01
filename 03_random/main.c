@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "../lib/binary_display.h"
+#include "../lib/colors.h"
 
 #define NL printf("\n");
 
@@ -11,6 +12,18 @@ void to_lowercaser(char *s)
 {
     while(*s != '\0')
         *s++ = *s | (1u << 5);
+}
+
+void to_uppercaser(char *s)
+{
+    while(*s != '\0')
+        *s++ = *s & ~(1u << 5);
+}
+
+void switch_lower_upper_caser(char *s)
+{
+    while(*s != '\0')
+        *s++ = *s ^ (1u << 5);
 }
 
 
