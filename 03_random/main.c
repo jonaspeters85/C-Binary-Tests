@@ -182,28 +182,101 @@ void test_clear_bit()
     printf("\nresult: %s\n", test_str);
 }
 
-void test_switch_case()
+void test_toggle_bit()
 {
     printf("----------------------------------------------------------------\n");
-    printf(COLOR_YELLOW "Using bitshifting and bit mask to switch case of letters\n" COLOR_RESET);
-    
-    NL
-    printf("Using XOR (^) operator to toggle the 6th bit (5) to switch case\n");
-    printf("number = number ^ (1u << 5)");
-    
-    char test_str[] ="Hello, World!";
 
-    printf("Test String: %s\n", test_str); 
+    printf(COLOR_YELLOW "Using bitshifting and XOR to toggle the case bit\n" COLOR_RESET);
+    unsigned int ASCII_A = 65;
+    unsigned int ASCII_a = 97;
+
+    NL
+
+    printf("Binary representation of ASCII 'A' (%u) is: \t", ASCII_A);
+    print_binary_high_is_green(ASCII_A);
+    printf("Binary representation of ASCII 'a' (%u) is: \t", ASCII_a);
+    print_binary_high_is_green(ASCII_a);
+
+    NL
+    printf("the difference between 'A' and 'a' is the 6th bit (bit 5, starting at 0)\n");
+    NL
+
+    printf("check 6th bit (5) of 'A' with  ASCII_A & (1u << 5) = %u \n", ASCII_A & (1u << 5));
+    printf("check 6th bit (5) of 'a' with  ASCII_a & (1u << 5) = %u \n", ASCII_a & (1u << 5));
+
+    NL
+
+    printf("hightlight 6th bit of 'A': ");
+    print_binary_highlight(ASCII_A, 5);
+    printf("hightlight 6th bit of 'a': ");
+    print_binary_highlight(ASCII_a, 5);
+
+    NL
+
+    printf("toggle 6th bit (5) with XOR\nASCII_A = "COLOR_PURPLE"ASCII_A ^ (1u << 5);\n" COLOR_RESET);
+    ASCII_A = ASCII_A ^ (1u << 5);
+    printf("ASCII_a = "COLOR_PURPLE"ASCII_a ^ (1u << 5);\n" COLOR_RESET);
+    ASCII_a = ASCII_a ^ (1u << 5);
+
+    printf("hightlight toggled bit of 'A'->'a': ");
+    print_binary_highlight(ASCII_A, 5);
+    printf("hightlight toggled bit of 'a'->'A': ");
+    print_binary_highlight(ASCII_a, 5);
+
+    NL
+    printf(COLOR_CYAN "(1u << 5)"COLOR_RESET " builds the mask with only bit 5 high\n");
+    printf("(1u << 5) = %u.    ... in uint8_t.    ", ((uint8_t)(1u << 5)));
+    print_binary_highlight(((uint8_t)(1u << 5)), 5);
+    NL
+
+    printf(COLOR_PURPLE "^" COLOR_RESET " is XOR (exclusive OR)\n");
+    printf("\t0 ^ 0 = "COLOR_RED"0"COLOR_RESET"\n\t0 ^ "COLOR_GREEN"1" COLOR_RESET " = "COLOR_GREEN"1" COLOR_RESET "\n\t"COLOR_GREEN"1" COLOR_RESET " ^ 0 = "COLOR_GREEN"1" COLOR_RESET "\n\t"COLOR_GREEN"1" COLOR_RESET " ^ "COLOR_GREEN"1" COLOR_RESET " = "COLOR_RED "0\n" COLOR_RESET);
+    NL
+    printf("With this mask, XOR flips only bit 5: 0 becomes 1, 1 becomes 0. All other bits stay untouched because they XOR with 0.\n");
+    NL
+
+    char test_str[] = "Hello, World!";
+
+    printf("Test String: %s\n", test_str);
     switch_lower_upper_caser(test_str);
     printf("\nresult: %s\n", test_str);
+}
+
+void short_bit_explanation()
+{
+    NL
+    printf("----------------------------------------------------------------\n");
+    printf(COLOR_YELLOW "Short explanation of bitwise operations\n" COLOR_RESET);
+    printf("Using bit masks and bitwise operators to manipulate individual bits in a byte or integer.\n");
+    printf("(1u << n) creates a mask with only the nth bit set high (1), all other bits are low (0).\n");
+    printf("Bitwise OR (|) with this mask sets the nth bit to 1 (used to set bits).\n");
+    printf("Bitwise AND (&) with the inverted mask (~) sets the nth bit to 0 (used to clear bits).\n");
+    printf("Bitwise XOR (^) with this mask toggles the nth bit (1 becomes 0, 0 becomes 1).\n");
+
+    NL
+
+    printf("Bit operation cheat sheet:\n");
+    printf("\n");
+
+    printf("Set bit n:           x |= (1u << n);\n");
+    printf("Clear bit n:         x &= ~(1u << n);\n");
+    printf("Toggle bit n:        x ^= (1u << n);\n");
+    printf("Check bit n:         (x & (1u << n)) != 0\n");
+    printf("\n");
+
+    printf("Clear all bits:      x = 0;\n");
+    printf("Set all bits:        x = ~0u;\n");
+
+    NL
 }
 
 // random tests
 int main()
 {
-    //test_bit_set();
+    test_bit_set();
     test_clear_bit();
-    //test_switch_case();
+    test_toggle_bit();
+    short_bit_explanation();
     return 0;
 }
 
