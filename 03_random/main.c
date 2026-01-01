@@ -10,7 +10,7 @@
 void to_lowercaser(char *s)
 {
     while(*s != '\0')
-        *s++ = *s | (1u << 5);git ad
+        *s++ = *s | (1u << 5);
 }
 
 
