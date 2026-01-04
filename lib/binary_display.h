@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include "colors.h"
 
+//#define DEBUG
+
+#define DEBUG2
+
 // binary_editor() edits and displays binary values ... close with ctrl+c
 
 void print_binary_simple(unsigned int n)
@@ -24,7 +28,9 @@ static int required_bits(unsigned int value)
         value >>= 1;
     }
     while (value != 0);
-
+#ifdef DEBUG
+    printf("required_bits: %d\n", bits);
+#endif
     return bits;
 }
 
@@ -132,7 +138,7 @@ void print_binary_high_is_green(int value)
         }
     }
 
-    putchar('\n');
+    //putchar('\n');
 }
 
 
@@ -182,6 +188,91 @@ void print_binary_highlight(int value, int highlight_bit)
 }
 
 
+void print_decimal_8bit_bytes_groups(int value)
+{
+    unsigned int uvalue = (unsigned int)value;
+    int bits = required_bits(uvalue);
+    int total_bits = ((bits + 7) / 8) * 8;      /// Always round up to full bytes (8 bits)
+    int num_bytes = total_bits / 8;
 
+    for (int byte_num = num_bytes - 1; byte_num >= 0; byte_num--)
+    {
+        unsigned int byte_value = (uvalue >> (byte_num * 8)) & 0xFF;
+        printf("%-9u", byte_value);
+        if (byte_num > 0)
+        {
+            printf("  ");  // 2 spaces between bytes to match binary output spacing
+        }
+    }
+}
+
+void printf_ascci_8bit_bytes_groups(int value)
+{
+    unsigned int uvalue = (unsigned int)value;
+    int bits = required_bits(uvalue);
+    int total_bits = ((bits + 7) / 8) * 8;      /// Always round up to full bytes (8 bits)
+    int num_bytes = total_bits / 8;
+
+    for (int byte_num = num_bytes - 1; byte_num >= 0; byte_num--)
+    {
+        unsigned int byte_value = (uvalue >> (byte_num * 8)) & 0xFF;
+        char c = (byte_value >= 32 && byte_value <= 126) ? (char)byte_value : '.';
+        printf("%-9c", c);
+        if (byte_num > 0)
+        {
+            printf("  ");  // 2 spaces between bytes to match binary output spacing
+        }
+    }
+}
+
+
+void print_binary_with_byte_naming(int value)
+{
+    unsigned int uvalue = (unsigned int)value;
+    int bits = required_bits(uvalue);
+    int total_bits = ((bits + 7) / 8) * 8;      /// Always round up to full bytes (8 bits)
+    int num_bytes = total_bits / 8;
+#ifdef DEBUG2
+    printf("print_binary_with_byte_naming(%d)\n", value);
+    printf("bits: %d\n", bits);
+    printf("total_bits: %d\n", total_bits);
+    printf("num_bytes: %d\n\n", num_bytes);
+#endif
+
+    // Print byte labels on first line
+    for (int byte_num = num_bytes - 1; byte_num >= 0; byte_num--)
+    {
+        printf("[byte %d] ", byte_num);
+        if (byte_num > 0)
+        {
+            printf("  ");  // 2 spaces between bytes to match binary output spacing
+        }
+    }
+ 
+    //putchar('\n');
+
+    // Print decimal value
+    printf("  Decimal ");
+    printf("  Hex");
+
+
+    putchar('\n');
+
+    // Print the bits with colors
+    print_binary_high_is_green(value);
+
+    printf("  %d  ", value);
+    printf("0x%X  ", (unsigned int)value);
+
+    putchar('\n');
+    
+    print_decimal_8bit_bytes_groups(value);
+
+    putchar('\n');
+
+    printf_ascci_8bit_bytes_groups(value);
+
+    putchar('\n');
+}
 
 #endif // BINARY_DISPLAY_H
