@@ -261,7 +261,7 @@ void print_binary_with_byte_naming(int value)
     // Print the bits with colors
     print_binary_high_is_green(value);
 
-    printf("  %d  ", value);
+    printf("  %-8d  ", value);
     printf("0x%X  ", (unsigned int)value);
 
     putchar('\n');

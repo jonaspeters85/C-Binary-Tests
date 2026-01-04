@@ -9,7 +9,22 @@
 
 #define NL printf("\n");
 
+void building_16_bit_value()
+{
+    printf(COLOR_BLUE"building_16_bit_value \n=============================\n"COLOR_RESET);
 
+    unsigned int green = 3u;
+    unsigned int blue = 7u;
+
+    unsigned int color_value =  (green << 8) | (blue << 0);
+    printf("res = (%u << 8) | (%u << 0) = %u\n",  green, blue, color_value);
+
+    printf("Color Value: %u\n", color_value);
+
+    NL
+    
+    print_binary_with_byte_naming(color_value);
+}
 
 void building_24_bit_value()
 {
@@ -81,22 +96,53 @@ void extract_bytes(int value)
     putchar('\n');
 }
 
+void extract_bytes_16bit(int value)
+{
+    printf(COLOR_BLUE"Extract_bytes_16bit value: %d \n=============================\n"COLOR_RESET, value);
+    printf("using bitmask 0xFFFF to extract 16 bits per group\n\n");
+    
+    int res = value;
+    int bytes = (required_bits(value)/8) + 1;
+    print_binary_with_byte_naming(res);
+
+    putchar('\n');
+    putchar('\n');
+
+    print_binary_high_is_green(res);
+    putchar('\n');
+    putchar('\n');
+    for (int i = 0; i < bytes; i++)
+    {
+        print_binary_high_is_green((res >> (i * 8)) & 0xFFFF);
+        if (i == 0)
+            printf("  LSB");
+        if (i == bytes -1)
+            printf("  MSB");
+        putchar('\n');
+    }
+}
+
 // Bit Shifting
 int main()
 {
     printf("Bit shifting\n============\n");
+    building_16_bit_value();
+
+NL
+NL
 
     building_24_bit_value();
 NL
 NL
 
     extract_8bits(4217199);
-
 NL
 NL
-
     extract_bytes(4217199);
 
+NL
+NL
+    extract_bytes_16bit(4217199);
     return 0;
 }
 
