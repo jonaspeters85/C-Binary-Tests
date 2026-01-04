@@ -9,19 +9,30 @@
 
 #define NL printf("\n");
 
+
+
+void building_24_bit_value()
+{
+    unsigned int red = 64u;
+    unsigned int green = 89u;
+    unsigned int blue = 111u;
+
+    unsigned int color_value = (red << 16) | (green << 8) | (blue << 0);
+    printf("res = (%u << 16) | (%u << 8) | (%u << 0).  = %u\n", red, green, blue, color_value);
+
+    printf("Color Value: %u\n", color_value);
+    print_binary_high_is_green(color_value);
+    print_binary_with_byte_naming(color_value);
+}
+
+
 // Bit Shifting
 int main()
 {
     printf("Bit shifting\n============\n");
 
-    int n = 7;
-    //printf("n = %u   (n << 1) = %u \n", n, (n << 1));
+    building_24_bit_value();
 
-    printf("Builing a 24 bit Value with 3 8bit Values i.e. for RGB Colores\n");
-    unsigned int res = (254u << 16) | (1u << 8) | (3 << 0);
-    printf("res = (254u << 16) | (1u << 8) | (2 << 0).  = %u\n", res);
-
-    print_binary_high_is_green(res);
 
     return 0;
 }
