@@ -5,8 +5,7 @@
 #include "colors.h"
 
 //#define DEBUG
-
-#define DEBUG2
+//#define DEBUG2
 
 // binary_editor() edits and displays binary values ... close with ctrl+c
 
@@ -187,7 +186,7 @@ void print_binary_highlight(int value, int highlight_bit)
     putchar('\n');
 }
 
-
+// will be called from print_binary_with_byte_naming()
 void print_decimal_8bit_bytes_groups(int value)
 {
     unsigned int uvalue = (unsigned int)value;
@@ -206,6 +205,7 @@ void print_decimal_8bit_bytes_groups(int value)
     }
 }
 
+// will be called from print_binary_with_byte_naming()
 void printf_ascci_8bit_bytes_groups(int value)
 {
     unsigned int uvalue = (unsigned int)value;
